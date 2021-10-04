@@ -65,7 +65,7 @@ plt.plot(dates_sitka, lows_sitka, c="blue")
 plt.fill_between(dates_sitka,highs_sitka,lows_sitka, facecolor="blue", alpha=0.1)
 plt.title(chart_name2[1])
 
-plt.suptitle("Temperature comparison between " + chart_name2[1] + " and " + chart_name[1])
+plt.suptitle(f"Temperature comparison between {chart_name2[1]} and {chart_name[1]}")
 
 fig.autofmt_xdate()
 
