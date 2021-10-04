@@ -2,21 +2,6 @@ import csv
 import matplotlib.pyplot as plt
 from datetime import datetime
 
-'''
-For your 5th python script file - 
-
-Automatic Indexes: We hard coded the indexes corresponding to the TMIN and TMAX
-columns. Use the header row to determine the indexes for these values, so your program can work
-for Sitka or Death Valley. Use the station name to automatically generate an appropriate title
-for your graph as well.
-
-create 2 subplot graphs in one visualization so you can see both graphs to compare side by side.
-
-Matplotlib's pyplot API has a convenience function called subplots() which acts as a
-utility wrapper and helps in creating common layouts of subplots, including the
-enclosing figure object, in a single call.
-'''
-
 open_file = open("death_valley_2018_simple.csv", "r")
 open_file2 = open("sitka_weather_2018_simple.csv", "r")
 
@@ -66,12 +51,22 @@ for row in csv_file2:
         highs_sitka.append(int(row[find_index(header_row2,"TMIN")]))
         dates_sitka.append(cur_date)
 
-plt.subplot(2,1,1)
-plt.plot(dates_death, highs_death, c="red")
-plt.title(chart_name[1])
+fig = plt.figure()
 
 plt.subplot(2,1,2)
+plt.plot(dates_death, highs_death, c="red")
+plt.plot(dates_death, lows_death, c="blue")
+plt.fill_between(dates_death,highs_death,lows_death, facecolor="blue", alpha=0.1)
+plt.title(chart_name[1])
+
+plt.subplot(2,1,1)
+plt.plot(dates_sitka, highs_sitka, c="red")
 plt.plot(dates_sitka, lows_sitka, c="blue")
+plt.fill_between(dates_sitka,highs_sitka,lows_sitka, facecolor="blue", alpha=0.1)
 plt.title(chart_name2[1])
+
+plt.suptitle("Temperature comparison between " + chart_name2[1] + " and " + chart_name[1])
+
+fig.autofmt_xdate()
 
 plt.show()
